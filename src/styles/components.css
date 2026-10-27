@@ -1,0 +1,436 @@
+/**
+ * SortLens Component Styles
+ */
+
+/* Button */
+.sl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sl-space-2);
+  font-family: var(--sl-font-sans);
+  font-weight: 500;
+  border-radius: var(--sl-radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--sl-transition-duration-fast) var(--sl-ease-standard);
+  text-decoration: none;
+}
+
+.sl-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.sl-btn-sm {
+  font-size: var(--sl-text-xs);
+  padding: 0.25rem 0.6rem;
+  height: 28px;
+}
+
+.sl-btn-md {
+  font-size: var(--sl-text-sm);
+  padding: 0.45rem 0.9rem;
+  height: 36px;
+}
+
+.sl-btn-lg {
+  font-size: var(--sl-text-base);
+  padding: 0.6rem 1.25rem;
+  height: 44px;
+}
+
+.sl-btn-primary {
+  background: var(--sl-color-primary);
+  color: #ffffff;
+  border-color: var(--sl-color-primary);
+  font-weight: 600;
+}
+
+.sl-btn-primary:hover:not(:disabled) {
+  background: var(--sl-color-primary-hover);
+  border-color: var(--sl-color-primary-hover);
+}
+
+.sl-btn-secondary {
+  background: var(--sl-color-surface-2);
+  color: var(--sl-color-text-primary);
+  border-color: var(--sl-color-border-base);
+}
+
+.sl-btn-secondary:hover:not(:disabled) {
+  background: var(--sl-color-surface-elevated);
+  border-color: var(--sl-color-border-hover);
+}
+
+.sl-btn-ghost {
+  background: transparent;
+  color: var(--sl-color-text-secondary);
+  border-color: transparent;
+}
+
+.sl-btn-ghost:hover:not(:disabled) {
+  background: var(--sl-color-surface-1);
+  color: var(--sl-color-text-primary);
+}
+
+.sl-btn-danger {
+  background: var(--sl-color-accent-rose-subtle);
+  color: var(--sl-color-accent-rose);
+  border-color: var(--sl-color-accent-rose-border);
+}
+
+.sl-btn-danger:hover:not(:disabled) {
+  background: rgba(244, 63, 94, 0.2);
+}
+
+/* Icon Button */
+.sl-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--sl-radius-md);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--sl-color-text-secondary);
+  cursor: pointer;
+  transition: all var(--sl-transition-duration-fast) var(--sl-ease-standard);
+  width: 36px;
+  height: 36px;
+  padding: 0;
+}
+
+.sl-icon-btn:hover:not(:disabled) {
+  background: var(--sl-color-surface-2);
+  color: var(--sl-color-text-primary);
+  border-color: var(--sl-color-border-subtle);
+}
+
+.sl-icon-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.sl-icon-btn-sm {
+  width: 28px;
+  height: 28px;
+}
+
+/* Badge */
+.sl-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sl-space-1);
+  font-family: var(--sl-font-mono);
+  font-size: var(--sl-text-xs);
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--sl-radius-sm);
+  border: 1px solid var(--sl-color-border-subtle);
+  background: var(--sl-color-surface-2);
+  color: var(--sl-color-text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.sl-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--sl-radius-full);
+}
+
+.sl-badge-neutral {
+  background: var(--sl-color-surface-2);
+  color: var(--sl-color-text-secondary);
+  border-color: var(--sl-color-border-base);
+}
+.sl-badge-neutral .sl-badge-dot { background: var(--sl-color-text-muted); }
+
+.sl-badge-amber {
+  background: var(--sl-color-accent-amber-subtle);
+  color: var(--sl-color-accent-amber);
+  border-color: var(--sl-color-accent-amber-border);
+}
+.sl-badge-amber .sl-badge-dot { background: var(--sl-color-accent-amber); }
+
+.sl-badge-cyan {
+  background: var(--sl-color-accent-cyan-subtle);
+  color: var(--sl-color-accent-cyan);
+  border-color: var(--sl-color-accent-cyan-border);
+}
+.sl-badge-cyan .sl-badge-dot { background: var(--sl-color-accent-cyan); }
+
+.sl-badge-emerald {
+  background: var(--sl-color-accent-emerald-subtle);
+  color: var(--sl-color-accent-emerald);
+  border-color: var(--sl-color-accent-emerald-border);
+}
+.sl-badge-emerald .sl-badge-dot { background: var(--sl-color-accent-emerald); }
+
+.sl-badge-rose {
+  background: var(--sl-color-accent-rose-subtle);
+  color: var(--sl-color-accent-rose);
+  border-color: var(--sl-color-accent-rose-border);
+}
+.sl-badge-rose .sl-badge-dot { background: var(--sl-color-accent-rose); }
+
+.sl-badge-indigo {
+  background: var(--sl-color-accent-indigo-subtle);
+  color: var(--sl-color-accent-indigo);
+  border-color: var(--sl-color-accent-indigo-border);
+}
+.sl-badge-indigo .sl-badge-dot { background: var(--sl-color-accent-indigo); }
+
+.sl-badge-violet {
+  background: var(--sl-color-primary-subtle);
+  color: var(--sl-color-primary-hover);
+  border-color: var(--sl-color-primary-border);
+}
+.sl-badge-violet .sl-badge-dot { background: var(--sl-color-primary); }
+
+/* Panel */
+.sl-panel {
+  background: var(--sl-color-surface-1);
+  border: 1px solid var(--sl-color-border-subtle);
+  border-radius: var(--sl-radius-lg);
+  overflow: hidden;
+  transition: border-color var(--sl-transition-duration-normal) var(--sl-ease-standard);
+}
+
+.sl-panel-elevated {
+  background: var(--sl-color-surface-2);
+  border-color: var(--sl-color-border-base);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.sl-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sl-space-3) var(--sl-space-4);
+  border-bottom: 1px solid var(--sl-color-border-subtle);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.sl-panel-title-area {
+  display: flex;
+  align-items: center;
+  gap: var(--sl-space-2);
+}
+
+.sl-panel-title {
+  font-size: var(--sl-text-sm);
+  font-weight: 600;
+  color: var(--sl-color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.sl-panel-subtitle {
+  font-size: var(--sl-text-xs);
+  color: var(--sl-color-text-muted);
+}
+
+.sl-panel-body {
+  padding: var(--sl-space-4);
+}
+
+.sl-panel-footer {
+  padding: var(--sl-space-3) var(--sl-space-4);
+  border-top: 1px solid var(--sl-color-border-subtle);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* Tooltip */
+.sl-tooltip-container {
+  position: relative;
+  display: inline-flex;
+}
+
+.sl-tooltip-bubble {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--sl-color-surface-elevated);
+  color: var(--sl-color-text-primary);
+  font-size: var(--sl-text-xs);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--sl-radius-sm);
+  border: 1px solid var(--sl-color-border-strong);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: var(--sl-z-tooltip);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Section Heading */
+.sl-section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--sl-space-4);
+  gap: var(--sl-space-4);
+  flex-wrap: wrap;
+}
+
+.sl-section-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-1);
+}
+
+.sl-section-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sl-space-3);
+}
+
+.sl-section-title {
+  font-size: var(--sl-text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--sl-color-text-primary);
+}
+
+.sl-section-desc {
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-text-secondary);
+  max-width: 680px;
+}
+
+/* Accessible Modal Backdrop & Container */
+.sl-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 9, 12, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sl-space-4);
+  z-index: 1000;
+  animation: sl-fade-in 150ms ease;
+}
+
+.sl-modal-container {
+  background: var(--sl-color-surface-1);
+  border: 1px solid var(--sl-color-border-base);
+  border-radius: var(--sl-radius-lg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: sl-modal-pop 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sl-modal-container-lg {
+  max-width: 880px;
+}
+
+.sl-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sl-space-4) var(--sl-space-5);
+  border-bottom: 1px solid var(--sl-color-border-subtle);
+  background: var(--sl-color-surface-2);
+}
+
+.sl-modal-title {
+  font-size: var(--sl-text-base);
+  font-weight: 600;
+  color: var(--sl-color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--sl-space-2);
+}
+
+.sl-modal-body {
+  padding: var(--sl-space-5);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.sl-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sl-space-3);
+  padding: var(--sl-space-3) var(--sl-space-5);
+  border-top: 1px solid var(--sl-color-border-subtle);
+  background: var(--sl-color-surface-2);
+}
+
+/* Keyboard Shortcut Key Pill */
+.sl-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 22px;
+  padding: 0 6px;
+  font-family: var(--sl-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--sl-color-accent-cyan);
+  background: var(--sl-color-surface-3);
+  border: 1px solid var(--sl-color-border-strong);
+  border-radius: var(--sl-radius-sm);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Shortcuts Grid */
+.sl-shortcuts-section {
+  margin-bottom: var(--sl-space-4);
+}
+
+.sl-shortcuts-heading {
+  font-size: var(--sl-text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sl-color-text-muted);
+  margin-bottom: var(--sl-space-2);
+}
+
+.sl-shortcuts-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-2);
+}
+
+.sl-shortcuts-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sl-space-2) var(--sl-space-3);
+  background: var(--sl-color-surface-2);
+  border: 1px solid var(--sl-color-border-subtle);
+  border-radius: var(--sl-radius-md);
+  font-size: var(--sl-text-xs);
+}
+
+.sl-shortcuts-desc {
+  color: var(--sl-color-text-secondary);
+}
+
+@keyframes sl-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sl-modal-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+

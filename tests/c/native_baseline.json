@@ -1,0 +1,604 @@
+{
+  "cases": [
+    {
+      "name": "random_small",
+      "n": 10,
+      "input": [10, 3, 18, 5, 12, 1, 15, 7, 20, 2],
+      "analysis": {
+        "inversions": 22,
+        "inversionRatio": 0.489,
+        "duplicateRatio": 0.000,
+        "distinct": 10,
+        "collisions": 2,
+        "maxLeftGreater": 8,
+        "predicted": 4,
+        "reason": "Merge: balanced O(n log n) division handles this shape in about 21 comparisons.",
+        "estimates": [45, 45, 31, 46, 21]
+      },
+      "runs": [
+        {
+          "algo": 0,
+          "comparisons": 45,
+          "writes": 44,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 68,
+          "sorted": [1, 2, 3, 5, 7, 10, 12, 15, 18, 20]
+        },
+        {
+          "algo": 1,
+          "comparisons": 45,
+          "writes": 12,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 52,
+          "sorted": [1, 2, 3, 5, 7, 10, 12, 15, 18, 20]
+        },
+        {
+          "algo": 2,
+          "comparisons": 29,
+          "writes": 31,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 61,
+          "sorted": [1, 2, 3, 5, 7, 10, 12, 15, 18, 20]
+        },
+        {
+          "algo": 3,
+          "comparisons": 28,
+          "writes": 12,
+          "maxDepth": 5,
+          "overflow": 0,
+          "eventCount": 55,
+          "sorted": [1, 2, 3, 5, 7, 10, 12, 15, 18, 20]
+        },
+        {
+          "algo": 4,
+          "comparisons": 25,
+          "writes": 34,
+          "maxDepth": 4,
+          "overflow": 0,
+          "eventCount": 87,
+          "sorted": [1, 2, 3, 5, 7, 10, 12, 15, 18, 20]
+        }
+      ],
+      "search": {
+        "targetPresent": 12,
+        "targetAbsent": 99,
+        "linear": {
+          "present": {"index": 6, "comparisons": 7, "steps": 7},
+          "absent": {"index": -1, "comparisons": 10, "steps": 10}
+        },
+        "binary": {
+          "present": {"index": 6, "comparisons": 4, "steps": 4},
+          "absent": {"index": -1, "comparisons": 4, "steps": 4}
+        }
+      }
+    },
+    {
+      "name": "already_sorted",
+      "n": 10,
+      "input": [3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
+      "analysis": {
+        "inversions": 0,
+        "inversionRatio": 0.000,
+        "duplicateRatio": 0.000,
+        "distinct": 10,
+        "collisions": 0,
+        "maxLeftGreater": 0,
+        "predicted": 0,
+        "reason": "Bubble: max displacement is only 0, so early-exit stops in 9 comparisons.",
+        "estimates": [9, 45, 9, 45, 17]
+      },
+      "runs": [
+        {
+          "algo": 0,
+          "comparisons": 9,
+          "writes": 0,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 10,
+          "sorted": [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+        },
+        {
+          "algo": 1,
+          "comparisons": 45,
+          "writes": 0,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 46,
+          "sorted": [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+        },
+        {
+          "algo": 2,
+          "comparisons": 9,
+          "writes": 9,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 19,
+          "sorted": [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+        },
+        {
+          "algo": 3,
+          "comparisons": 45,
+          "writes": 0,
+          "maxDepth": 9,
+          "overflow": 0,
+          "eventCount": 82,
+          "sorted": [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+        },
+        {
+          "algo": 4,
+          "comparisons": 19,
+          "writes": 34,
+          "maxDepth": 4,
+          "overflow": 0,
+          "eventCount": 81,
+          "sorted": [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+        }
+      ],
+      "search": {
+        "targetPresent": 15,
+        "targetAbsent": 16,
+        "linear": {
+          "present": {"index": 4, "comparisons": 5, "steps": 5},
+          "absent": {"index": -1, "comparisons": 10, "steps": 10}
+        },
+        "binary": {
+          "present": {"index": 4, "comparisons": 1, "steps": 1},
+          "absent": {"index": -1, "comparisons": 3, "steps": 3}
+        }
+      }
+    },
+    {
+      "name": "strictly_reversed",
+      "n": 10,
+      "input": [10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+      "analysis": {
+        "inversions": 45,
+        "inversionRatio": 1.000,
+        "duplicateRatio": 0.000,
+        "distinct": 10,
+        "collisions": 0,
+        "maxLeftGreater": 9,
+        "predicted": 4,
+        "reason": "Merge: balanced O(n log n) division handles this shape in about 17 comparisons.",
+        "estimates": [45, 45, 54, 45, 17]
+      },
+      "runs": [
+        {
+          "algo": 0,
+          "comparisons": 45,
+          "writes": 90,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 91,
+          "sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        },
+        {
+          "algo": 1,
+          "comparisons": 45,
+          "writes": 10,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 51,
+          "sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        },
+        {
+          "algo": 2,
+          "comparisons": 45,
+          "writes": 54,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 100,
+          "sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        },
+        {
+          "algo": 3,
+          "comparisons": 45,
+          "writes": 10,
+          "maxDepth": 9,
+          "overflow": 0,
+          "eventCount": 87,
+          "sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        },
+        {
+          "algo": 4,
+          "comparisons": 15,
+          "writes": 34,
+          "maxDepth": 4,
+          "overflow": 0,
+          "eventCount": 77,
+          "sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        }
+      ],
+      "search": {
+        "targetPresent": 7,
+        "targetAbsent": 42,
+        "linear": {
+          "present": {"index": 6, "comparisons": 7, "steps": 7},
+          "absent": {"index": -1, "comparisons": 10, "steps": 10}
+        },
+        "binary": {
+          "present": {"index": 6, "comparisons": 4, "steps": 4},
+          "absent": {"index": -1, "comparisons": 4, "steps": 4}
+        }
+      }
+    },
+    {
+      "name": "duplicates_heavy",
+      "n": 14,
+      "input": [5, 2, 5, 1, 9, 2, 5, 9, 1, 5, 2, 9, 5, 1],
+      "analysis": {
+        "inversions": 37,
+        "inversionRatio": 0.407,
+        "duplicateRatio": 0.769,
+        "distinct": 4,
+        "collisions": 0,
+        "maxLeftGreater": 11,
+        "predicted": 4,
+        "reason": "Merge: balanced O(n log n) division handles this shape in about 35 comparisons.",
+        "estimates": [90, 91, 50, 87, 35]
+      },
+      "runs": [
+        {
+          "algo": 0,
+          "comparisons": 90,
+          "writes": 74,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 128,
+          "sorted": [1, 1, 1, 2, 2, 2, 5, 5, 5, 5, 5, 9, 9, 9]
+        },
+        {
+          "algo": 1,
+          "comparisons": 91,
+          "writes": 20,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 102,
+          "sorted": [1, 1, 1, 2, 2, 2, 5, 5, 5, 5, 5, 9, 9, 9]
+        },
+        {
+          "algo": 2,
+          "comparisons": 48,
+          "writes": 50,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 99,
+          "sorted": [1, 1, 1, 2, 2, 2, 5, 5, 5, 5, 5, 9, 9, 9]
+        },
+        {
+          "algo": 3,
+          "comparisons": 42,
+          "writes": 26,
+          "maxDepth": 6,
+          "overflow": 0,
+          "eventCount": 96,
+          "sorted": [1, 1, 1, 2, 2, 2, 5, 5, 5, 5, 5, 9, 9, 9]
+        },
+        {
+          "algo": 4,
+          "comparisons": 38,
+          "writes": 54,
+          "maxDepth": 4,
+          "overflow": 0,
+          "eventCount": 132,
+          "sorted": [1, 1, 1, 2, 2, 2, 5, 5, 5, 5, 5, 9, 9, 9]
+        }
+      ],
+      "search": {
+        "targetPresent": 9,
+        "targetAbsent": 4,
+        "linear": {
+          "present": {"index": 11, "comparisons": 12, "steps": 12},
+          "absent": {"index": -1, "comparisons": 14, "steps": 14}
+        },
+        "binary": {
+          "present": {"index": 12, "comparisons": 3, "steps": 3},
+          "absent": {"index": -1, "comparisons": 4, "steps": 4}
+        }
+      }
+    },
+    {
+      "name": "min_size_two",
+      "n": 2,
+      "input": [88, 13],
+      "analysis": {
+        "inversions": 1,
+        "inversionRatio": 1.000,
+        "duplicateRatio": 0.000,
+        "distinct": 2,
+        "collisions": 0,
+        "maxLeftGreater": 1,
+        "predicted": 0,
+        "reason": "Bubble: max displacement is only 1, so early-exit stops in 1 comparisons.",
+        "estimates": [1, 1, 2, 1, 1]
+      },
+      "runs": [
+        {
+          "algo": 0,
+          "comparisons": 1,
+          "writes": 2,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 3,
+          "sorted": [13, 88]
+        },
+        {
+          "algo": 1,
+          "comparisons": 1,
+          "writes": 2,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 3,
+          "sorted": [13, 88]
+        },
+        {
+          "algo": 2,
+          "comparisons": 1,
+          "writes": 2,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 4,
+          "sorted": [13, 88]
+        },
+        {
+          "algo": 3,
+          "comparisons": 1,
+          "writes": 2,
+          "maxDepth": 1,
+          "overflow": 0,
+          "eventCount": 7,
+          "sorted": [13, 88]
+        },
+        {
+          "algo": 4,
+          "comparisons": 1,
+          "writes": 2,
+          "maxDepth": 1,
+          "overflow": 0,
+          "eventCount": 7,
+          "sorted": [13, 88]
+        }
+      ],
+      "search": {
+        "targetPresent": 88,
+        "targetAbsent": 50,
+        "linear": {
+          "present": {"index": 1, "comparisons": 2, "steps": 2},
+          "absent": {"index": -1, "comparisons": 2, "steps": 2}
+        },
+        "binary": {
+          "present": {"index": 1, "comparisons": 2, "steps": 2},
+          "absent": {"index": -1, "comparisons": 2, "steps": 2}
+        }
+      }
+    },
+    {
+      "name": "all_identical",
+      "n": 8,
+      "input": [42, 42, 42, 42, 42, 42, 42, 42],
+      "analysis": {
+        "inversions": 0,
+        "inversionRatio": 0.000,
+        "duplicateRatio": 1.000,
+        "distinct": 1,
+        "collisions": 0,
+        "maxLeftGreater": 0,
+        "predicted": 0,
+        "reason": "Bubble: max displacement is only 0, so early-exit stops in 7 comparisons.",
+        "estimates": [7, 28, 7, 28, 12]
+      },
+      "runs": [
+        {
+          "algo": 0,
+          "comparisons": 7,
+          "writes": 0,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 8,
+          "sorted": [42, 42, 42, 42, 42, 42, 42, 42]
+        },
+        {
+          "algo": 1,
+          "comparisons": 28,
+          "writes": 0,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 29,
+          "sorted": [42, 42, 42, 42, 42, 42, 42, 42]
+        },
+        {
+          "algo": 2,
+          "comparisons": 7,
+          "writes": 7,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 15,
+          "sorted": [42, 42, 42, 42, 42, 42, 42, 42]
+        },
+        {
+          "algo": 3,
+          "comparisons": 28,
+          "writes": 0,
+          "maxDepth": 7,
+          "overflow": 0,
+          "eventCount": 57,
+          "sorted": [42, 42, 42, 42, 42, 42, 42, 42]
+        },
+        {
+          "algo": 4,
+          "comparisons": 12,
+          "writes": 24,
+          "maxDepth": 3,
+          "overflow": 0,
+          "eventCount": 58,
+          "sorted": [42, 42, 42, 42, 42, 42, 42, 42]
+        }
+      ],
+      "search": {
+        "targetPresent": 42,
+        "targetAbsent": 10,
+        "linear": {
+          "present": {"index": 0, "comparisons": 1, "steps": 1},
+          "absent": {"index": -1, "comparisons": 8, "steps": 8}
+        },
+        "binary": {
+          "present": {"index": 3, "comparisons": 1, "steps": 1},
+          "absent": {"index": -1, "comparisons": 3, "steps": 3}
+        }
+      }
+    },
+    {
+      "name": "nearly_sorted",
+      "n": 12,
+      "input": [1, 2, 3, 5, 4, 6, 7, 8, 10, 9, 11, 12],
+      "analysis": {
+        "inversions": 2,
+        "inversionRatio": 0.030,
+        "duplicateRatio": 0.000,
+        "distinct": 12,
+        "collisions": 1,
+        "maxLeftGreater": 1,
+        "predicted": 2,
+        "reason": "Insertion: only 2 inversions, so it needs about 13 comparisons.",
+        "estimates": [21, 66, 13, 65, 22]
+      },
+      "runs": [
+        {
+          "algo": 0,
+          "comparisons": 21,
+          "writes": 4,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 24,
+          "sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          "algo": 1,
+          "comparisons": 66,
+          "writes": 4,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 69,
+          "sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          "algo": 2,
+          "comparisons": 13,
+          "writes": 13,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 27,
+          "sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          "algo": 3,
+          "comparisons": 55,
+          "writes": 4,
+          "maxDepth": 9,
+          "overflow": 0,
+          "eventCount": 94,
+          "sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        {
+          "algo": 4,
+          "comparisons": 25,
+          "writes": 44,
+          "maxDepth": 4,
+          "overflow": 0,
+          "eventCount": 103,
+          "sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        }
+      ],
+      "search": {
+        "targetPresent": 10,
+        "targetAbsent": 100,
+        "linear": {
+          "present": {"index": 9, "comparisons": 10, "steps": 10},
+          "absent": {"index": -1, "comparisons": 12, "steps": 12}
+        },
+        "binary": {
+          "present": {"index": 9, "comparisons": 4, "steps": 4},
+          "absent": {"index": -1, "comparisons": 4, "steps": 4}
+        }
+      }
+    },
+    {
+      "name": "prng_large_50",
+      "n": 50,
+      "input": [60, 44, 88, 12, 6, 90, 13, 77, 51, 57, 89, 28, 56, 70, 89, 70, 58, 75, 8, 1, 45, 50, 98, 4, 41, 41, 21, 98, 10, 10, 12, 73, 9, 29, 84, 31, 31, 7, 47, 23, 53, 17, 51, 68, 23, 68, 83, 42, 10, 21],
+      "analysis": {
+        "inversions": 680,
+        "inversionRatio": 0.555,
+        "duplicateRatio": 0.245,
+        "distinct": 38,
+        "collisions": 27,
+        "maxLeftGreater": 40,
+        "predicted": 4,
+        "reason": "Merge: balanced O(n log n) division handles this shape in about 219 comparisons.",
+        "estimates": [1189, 1225, 729, 604, 219]
+      },
+      "runs": [
+        {
+          "algo": 0,
+          "comparisons": 1189,
+          "writes": 1360,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 1870,
+          "sorted": [1, 4, 6, 7, 8, 9, 10, 10, 10, 12, 12, 13, 17, 21, 21, 23, 23, 28, 29, 31, 31, 41, 41, 42, 44, 45, 47, 50, 51, 51, 53, 56, 57, 58, 60, 68, 68, 70, 70, 73, 75, 77, 83, 84, 88, 89, 89, 90, 98, 98]
+        },
+        {
+          "algo": 1,
+          "comparisons": 1225,
+          "writes": 92,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 1272,
+          "sorted": [1, 4, 6, 7, 8, 9, 10, 10, 10, 12, 12, 13, 17, 21, 21, 23, 23, 28, 29, 31, 31, 41, 41, 42, 44, 45, 47, 50, 51, 51, 53, 56, 57, 58, 60, 68, 68, 70, 70, 73, 75, 77, 83, 84, 88, 89, 89, 90, 98, 98]
+        },
+        {
+          "algo": 2,
+          "comparisons": 725,
+          "writes": 729,
+          "maxDepth": 0,
+          "overflow": 0,
+          "eventCount": 1455,
+          "sorted": [1, 4, 6, 7, 8, 9, 10, 10, 10, 12, 12, 13, 17, 21, 21, 23, 23, 28, 29, 31, 31, 41, 41, 42, 44, 45, 47, 50, 51, 51, 53, 56, 57, 58, 60, 68, 68, 70, 70, 73, 75, 77, 83, 84, 88, 89, 89, 90, 98, 98]
+        },
+        {
+          "algo": 3,
+          "comparisons": 244,
+          "writes": 226,
+          "maxDepth": 10,
+          "overflow": 0,
+          "eventCount": 494,
+          "sorted": [1, 4, 6, 7, 8, 9, 10, 10, 10, 12, 12, 13, 17, 21, 21, 23, 23, 28, 29, 31, 31, 41, 41, 42, 44, 45, 47, 50, 51, 51, 53, 56, 57, 58, 60, 68, 68, 70, 70, 73, 75, 77, 83, 84, 88, 89, 89, 90, 98, 98]
+        },
+        {
+          "algo": 4,
+          "comparisons": 232,
+          "writes": 286,
+          "maxDepth": 6,
+          "overflow": 0,
+          "eventCount": 666,
+          "sorted": [1, 4, 6, 7, 8, 9, 10, 10, 10, 12, 12, 13, 17, 21, 21, 23, 23, 28, 29, 31, 31, 41, 41, 42, 44, 45, 47, 50, 51, 51, 53, 56, 57, 58, 60, 68, 68, 70, 70, 73, 75, 77, 83, 84, 88, 89, 89, 90, 98, 98]
+        }
+      ],
+      "search": {
+        "targetPresent": 41,
+        "targetAbsent": 101,
+        "linear": {
+          "present": {"index": 21, "comparisons": 22, "steps": 22},
+          "absent": {"index": -1, "comparisons": 50, "steps": 50}
+        },
+        "binary": {
+          "present": {"index": 22, "comparisons": 5, "steps": 5},
+          "absent": {"index": -1, "comparisons": 6, "steps": 6}
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,304 @@
+/**
+ * SortLens Analysis & Results Styles
+ * Styles for shape analysis, cost model prediction, hash table, scoreboard, and verdict banner.
+ */
+
+/* Analysis Grid Layout */
+.sl-analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: var(--sl-space-4);
+  margin-top: var(--sl-space-4);
+}
+
+/* Metric Display Cards */
+.sl-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--sl-space-2) 0;
+  border-bottom: 1px solid var(--sl-color-border-subtle);
+}
+
+.sl-metric-row:last-child {
+  border-bottom: none;
+}
+
+.sl-metric-label {
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--sl-space-2);
+}
+
+.sl-metric-value {
+  font-size: var(--sl-text-base);
+  font-weight: 600;
+  color: var(--sl-color-text-primary);
+}
+
+/* Inversion Ratio Gauge Bar */
+.sl-gauge-wrap {
+  margin: var(--sl-space-3) 0;
+}
+
+.sl-gauge-bar-track {
+  width: 100%;
+  height: 8px;
+  background: var(--sl-color-surface-2);
+  border-radius: var(--sl-radius-full);
+  overflow: hidden;
+  border: 1px solid var(--sl-color-border-subtle);
+}
+
+.sl-gauge-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--sl-color-primary), var(--sl-color-accent-rose));
+  border-radius: var(--sl-radius-full);
+  transition: width var(--sl-duration-normal) var(--sl-ease-out);
+}
+
+/* 11-Bucket Hash Table Visualization */
+.sl-hashtable-wrap {
+  margin-top: var(--sl-space-4);
+}
+
+.sl-hashtable-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: var(--sl-space-2);
+  margin-top: var(--sl-space-2);
+}
+
+.sl-hash-bucket {
+  background: var(--sl-color-surface-2);
+  border: 1px solid var(--sl-color-border-subtle);
+  border-radius: var(--sl-radius-md);
+  padding: var(--sl-space-2);
+  text-align: center;
+  font-size: var(--sl-text-xs);
+  transition: border-color var(--sl-duration-fast);
+}
+
+.sl-hash-bucket-has-chain {
+  border-color: var(--sl-color-border-strong);
+  background: var(--sl-color-surface-elevated);
+}
+
+.sl-hash-bucket-collision {
+  border-color: var(--sl-color-accent-amber-border);
+}
+
+.sl-bucket-index {
+  font-weight: 700;
+  color: var(--sl-color-text-muted);
+  margin-bottom: var(--sl-space-1);
+}
+
+.sl-bucket-count {
+  font-weight: 600;
+  color: var(--sl-color-text-primary);
+}
+
+.sl-bucket-values {
+  margin-top: var(--sl-space-1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: center;
+}
+
+.sl-bucket-val-chip {
+  background: var(--sl-color-bg-base);
+  border: 1px solid var(--sl-color-border-subtle);
+  border-radius: 2px;
+  padding: 1px 4px;
+  font-size: 10px;
+  color: var(--sl-color-text-secondary);
+}
+
+/* Prediction Panel Card */
+.sl-prediction-panel {
+  border-color: var(--sl-color-accent-amber-border) !important;
+}
+
+.sl-prediction-hidden-box {
+  padding: var(--sl-space-6) var(--sl-space-4);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sl-space-3);
+  background: var(--sl-color-surface-2);
+  border-radius: var(--sl-radius-lg);
+  border: 1px dashed var(--sl-color-accent-amber-border);
+}
+
+.sl-prediction-revealed-box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-4);
+}
+
+.sl-prediction-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sl-space-3) var(--sl-space-4);
+  background: var(--sl-color-accent-amber-subtle);
+  border: 1px solid var(--sl-color-accent-amber-border);
+  border-radius: var(--sl-radius-md);
+}
+
+.sl-prediction-algo-title {
+  font-size: var(--sl-text-lg);
+  font-weight: 700;
+  color: var(--sl-color-accent-amber);
+}
+
+.sl-estimates-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--sl-space-2);
+  font-size: var(--sl-text-xs);
+}
+
+.sl-estimates-table th,
+.sl-estimates-table td {
+  padding: var(--sl-space-2) var(--sl-space-3);
+  text-align: left;
+  border-bottom: 1px solid var(--sl-color-border-subtle);
+}
+
+.sl-estimates-table th {
+  color: var(--sl-color-text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sl-estimates-table tr.sl-predicted-row {
+  background: var(--sl-color-accent-amber-subtle);
+  font-weight: 600;
+}
+
+/* Final Results Scoreboard */
+.sl-results-section {
+  margin-top: var(--sl-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-4);
+}
+
+.sl-scoreboard-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--sl-radius-lg);
+  border: 1px solid var(--sl-color-border-base);
+  background: var(--sl-color-surface-1);
+}
+
+.sl-scoreboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--sl-text-sm);
+}
+
+.sl-scoreboard-table th {
+  background: var(--sl-color-surface-2);
+  padding: var(--sl-space-3) var(--sl-space-4);
+  color: var(--sl-color-text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: var(--sl-text-xs);
+  border-bottom: 1px solid var(--sl-color-border-base);
+}
+
+.sl-scoreboard-table td {
+  padding: var(--sl-space-3) var(--sl-space-4);
+  border-bottom: 1px solid var(--sl-color-border-subtle);
+}
+
+.sl-scoreboard-table tr:last-child td {
+  border-bottom: none;
+}
+
+.sl-scoreboard-row-winner {
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.sl-scoreboard-row-winner td:first-child {
+  border-left: 3px solid var(--sl-color-accent-emerald);
+}
+
+.sl-rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: var(--sl-radius-sm);
+  font-weight: 700;
+  font-size: var(--sl-text-xs);
+}
+
+.sl-rank-1 {
+  background: var(--sl-color-accent-emerald);
+  color: var(--sl-color-bg-base);
+}
+
+.sl-rank-other {
+  background: var(--sl-color-surface-elevated);
+  color: var(--sl-color-text-secondary);
+}
+
+/* Prediction Verdict Banner */
+.sl-verdict-banner {
+  padding: var(--sl-space-4);
+  border-radius: var(--sl-radius-lg);
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-2);
+}
+
+.sl-verdict-confirmed {
+  background: var(--sl-color-accent-emerald-subtle);
+  border-color: var(--sl-color-accent-emerald-border);
+}
+
+.sl-verdict-missed {
+  background: var(--sl-color-accent-amber-subtle);
+  border-color: var(--sl-color-accent-amber-border);
+}
+
+.sl-verdict-inconclusive {
+  background: var(--sl-color-surface-2);
+  border-color: var(--sl-color-border-strong);
+}
+
+.sl-verdict-unavailable {
+  background: var(--sl-color-accent-rose-subtle);
+  border-color: var(--sl-color-accent-rose-border);
+}
+
+.sl-verdict-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sl-verdict-title {
+  font-size: var(--sl-text-base);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.sl-verdict-desc {
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-text-secondary);
+  line-height: var(--sl-leading-relaxed);
+}

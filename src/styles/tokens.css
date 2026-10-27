@@ -1,0 +1,132 @@
+/**
+ * SortLens Design Tokens — Engineering Laboratory Aesthetic
+ * Dark graphite surfaces, restrained telemetry accents, precise borders, monospace numeric hierarchy.
+ */
+
+:root {
+  /* Surfaces & Backgrounds (Refined Deep Charcoal & Near-Black) */
+  --sl-color-bg-base: #0b0d12;
+  --sl-color-bg-subtle: #11141c;
+  --sl-color-surface-1: #151923;
+  --sl-color-surface-2: #1c212e;
+  --sl-color-surface-elevated: #232a3a;
+  --sl-color-surface-overlay: rgba(11, 13, 18, 0.88);
+
+  /* Borders & Dividers */
+  --sl-color-border-subtle: #1f2533;
+  --sl-color-border-base: #2b3140;
+  --sl-color-border-strong: #3c4458;
+  --sl-color-border-hover: #505a74;
+
+  /* Typography / Text Colors */
+  --sl-color-text-primary: #f1f3f9;
+  --sl-color-text-secondary: #a5aec1;
+  --sl-color-text-muted: #6b768e;
+  --sl-color-text-dim: #454d60;
+  --sl-color-text-inverse: #0b0d12;
+
+  /* Primary Interaction Accent (Violet / Purple) */
+  --sl-color-primary: #8b5cf6;
+  --sl-color-primary-hover: #a78bfa;
+  --sl-color-primary-active: #7c3aed;
+  --sl-color-primary-subtle: rgba(139, 92, 246, 0.15);
+  --sl-color-primary-border: rgba(139, 92, 246, 0.35);
+
+  /* Purposeful Telemetry Accents */
+  /* Amber is strictly reserved for the Empirical Cost Model prediction signal */
+  --sl-color-accent-amber: #ffaa20;
+  --sl-color-accent-amber-subtle: rgba(255, 170, 32, 0.12);
+  --sl-color-accent-amber-border: rgba(255, 170, 32, 0.35);
+
+  /* Cyan is retained for secondary telemetry comparisons and inspection highlights */
+  --sl-color-accent-cyan: #38bdf8;
+  --sl-color-accent-cyan-subtle: rgba(56, 189, 248, 0.12);
+  --sl-color-accent-cyan-border: rgba(56, 189, 248, 0.35);
+
+  /* Green / Emerald represents sorted arrays, exact native parity, and verified readiness */
+  --sl-color-accent-emerald: #20c997;
+  --sl-color-accent-emerald-subtle: rgba(32, 201, 151, 0.12);
+  --sl-color-accent-emerald-border: rgba(32, 201, 151, 0.35);
+
+  /* Rose is used for writes, swaps, and critical runtime errors */
+  --sl-color-accent-rose: #f43f5e;
+  --sl-color-accent-rose-subtle: rgba(244, 63, 94, 0.12);
+  --sl-color-accent-rose-border: rgba(244, 63, 94, 0.35);
+
+  /* Indigo represents active subarray ranges, recursion stack depth, and partitions */
+  --sl-color-accent-indigo: #6366f1;
+  --sl-color-accent-indigo-subtle: rgba(99, 102, 241, 0.12);
+  --sl-color-accent-indigo-border: rgba(99, 102, 241, 0.35);
+
+  /* Violet represents Quick Sort partition pivots and primary selections */
+  --sl-color-accent-violet: #8b5cf6;
+  --sl-color-accent-violet-subtle: rgba(139, 92, 246, 0.15);
+  --sl-color-accent-violet-border: rgba(139, 92, 246, 0.35);
+
+  /* Distinct Algorithm Identity Accents (Columns 1-5) */
+  --sl-algo-1: #f43f5e; /* Bubble */
+  --sl-algo-2: #38bdf8; /* Selection */
+  --sl-algo-3: #20c997; /* Insertion */
+  --sl-algo-4: #8b5cf6; /* Quick */
+  --sl-algo-5: #ffaa20; /* Merge */
+
+  /* Focus & Accessibility */
+  --sl-color-focus-ring: #a78bfa;
+  --sl-focus-outline: 2px solid var(--sl-color-focus-ring);
+  --sl-focus-offset: 2px;
+
+  /* Typography Stacks */
+  --sl-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --sl-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Font Sizes */
+  --sl-text-xs: 0.6875rem; /* 11px */
+  --sl-text-sm: 0.8125rem; /* 13px */
+  --sl-text-base: 0.9375rem; /* 15px */
+  --sl-text-lg: 1.0625rem; /* 17px */
+  --sl-text-xl: 1.25rem; /* 20px */
+  --sl-text-2xl: 1.5rem; /* 24px */
+  --sl-text-3xl: 1.875rem; /* 30px */
+
+  /* Spacing Scale */
+  --sl-space-1: 0.25rem;  /* 4px */
+  --sl-space-2: 0.5rem;   /* 8px */
+  --sl-space-3: 0.75rem;  /* 12px */
+  --sl-space-4: 1rem;     /* 16px */
+  --sl-space-5: 1.25rem;  /* 20px */
+  --sl-space-6: 1.5rem;   /* 24px */
+  --sl-space-8: 2rem;     /* 32px */
+  --sl-space-10: 2.5rem;  /* 40px */
+  --sl-space-12: 3rem;    /* 48px */
+
+  /* Border Radii */
+  --sl-radius-xs: 2px;
+  --sl-radius-sm: 4px;
+  --sl-radius-md: 6px;
+  --sl-radius-lg: 8px;
+  --sl-radius-xl: 12px;
+  --sl-radius-full: 9999px;
+
+  /* Layout Heights & Widths */
+  --sl-header-height: 56px;
+  --sl-sidebar-width: 240px;
+  --sl-sidebar-collapsed-width: 64px;
+  --sl-max-workspace-width: 1600px;
+
+  /* Motion & Transitions */
+  --sl-transition-duration-fast: 120ms;
+  --sl-transition-duration-normal: 220ms;
+  --sl-transition-duration-slow: 350ms;
+  --sl-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --sl-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --sl-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layering / Z-Index */
+  --sl-z-base: 1;
+  --sl-z-raised: 10;
+  --sl-z-header: 50;
+  --sl-z-sidebar: 60;
+  --sl-z-dropdown: 100;
+  --sl-z-modal: 500;
+  --sl-z-tooltip: 1000;
+}
