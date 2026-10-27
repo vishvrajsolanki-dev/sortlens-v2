@@ -1,179 +1,495 @@
-# SortLens Rebuild
+# SortLens v2.0
 
-**SortLens** is an academic algorithmic sorting analyzer and telemetry laboratory built to explore the empirical runtime complexity of syllabus sorting and searching algorithms.
-
-This repository is a ground-up modernization and rebuild of the SortLens frontend and architecture, preserving the verified C99 algorithmic engine while eliminating legacy state and interaction defects.
+An interactive algorithm visualization and analysis workbench for exploring sorting algorithm behaviour through visual execution, empirical operation counting, and dataset characteristic analysis.
 
 ---
 
-## 1. Project Status: Phase 9 Completed (Release Ready)
+## Table of Contents
 
-| Phase | Title | Status |
-| :--- | :--- | :--- |
-| **Phase 0** | **Workspace & Baseline Verification** | **COMPLETED & VERIFIED** |
-| **Phase 1** | **Core & WebAssembly Integration** | **COMPLETED & VERIFIED** |
-| **Phase 2** | **Playback Engine** | **COMPLETED & VERIFIED** |
-| **Phase 3** | **Design System & Application Shell** | **COMPLETED & VERIFIED** |
-| **Phase 4** | **Sorting Arena (5 Synchronized Lanes)** | **COMPLETED & VERIFIED** |
-| **Phase 5** | **Analysis, Predictions & Scoreboard** | **COMPLETED & VERIFIED** |
-| **Phase 6** | **Supporting Labs (Search, Scaling, Viva)** | **COMPLETED & VERIFIED** |
-| **Phase 7** | **Persistence, Keyboard Shortcuts & Polish** | **COMPLETED & VERIFIED** |
-| **Phase 8** | **Regression & Acceptance Testing** | **COMPLETED & VERIFIED** |
-| **Phase 9** | **Release Readiness & Academic Packaging** | **COMPLETED & VERIFIED** |
-
-
----
-
-## 2. Completed Work
-
-### Phase 0: Workspace & Baseline
-1. **Independent Workspace:** Initialized `sortlens-rebuild/` without modifying the original repository (`sortlens/`).
-2. **C99 Source Preservation:** Migrated all 8 modular C99 core files into `src/core/c/`, with 100% binary hash verification (`docs/SOURCE_MANIFEST.md`).
-3. **Native C99 Test Verification:** Compiled and executed `tests/c/test_core.c` with MinGW GCC 15.2.0; all 6 test suites passed.
-4. **Empirical Calibration Verification:** Compiled and executed `tools/calibrate.c` on 1,000 synthetic arrays; verified **96.50%** prediction accuracy (exceeding 85% requirement).
-5. **Modern Frontend Toolchain:** Established React 19, TypeScript 7 (strict mode), Vite 8, Zustand 5, Motion, Vitest, and React Testing Library.
-
-### Phase 1: WebAssembly Integration & Native Parity
-1. **Universal WASM Loader:** Built `src/core/adapter/loader.ts` enabling seamless cross-runtime initialization in both browser (Vite) and Node/JSDOM (Vitest).
-2. **Typed API Adapter:** Implemented `CoreClient` wrapping all 33 C99 exports with strict input validation, BigInt normalization, and C-string decoding.
-3. **Native Parity Verification:** Compiled native reference harness `tests/c/parity_harness.c` and proved **100% exact parity** across all 5 sorting algorithms and search routines.
-4. **Interactive Diagnostic Console:** Updated `src/app/App.tsx` with live WASM execution workbench for real-time shape analysis and sorting.
-5. **Core Contracts:** Published `docs/CORE_API_CONTRACT.md`, `docs/WASM_VERIFICATION.md`, `docs/TRACE_CONTRACT.md`, and `docs/PHASE1_REPORT.md`.
-
-### Phase 2: Playback Engine & Reversible Event Replay
-1. **Reversible Replay Engine:** Built pure delta transitions in `src/engine/frameReplay.ts` supporting bidirectional navigation across all 8 trace opcodes.
-2. **Sparse Checkpointed Frame Store:** Implemented `src/engine/FrameStore.ts` with interval-50 checkpoints, delivering sub-millisecond (< 0.2ms) arbitrary seeks and bounded memory (< 50 KB).
-3. **Decoupled Animation Timing:** Implemented `src/engine/PlaybackClock.ts` decoupling screen refresh rates (60–144 Hz) from simulation speeds (1–1000 events/sec), protected against background tab freezes.
-4. **Single-Lane Controller:** Built `src/engine/TracePlayer.ts` state machine with subscriber notifications, step navigation, and auto-restart.
-5. **Multi-Lane Arena Coordinator:** Built `src/engine/RaceCoordinator.ts` orchestrating all 5 syllabus algorithms in parallel with independent lane completion and synchronized seeking.
-6. **Engine Verification:** Delivered 6 automated test suites (29 tests) bringing total automated tests to **71/71 passing**; published `docs/PLAYBACK_ENGINE_DESIGN.md`, `docs/PLAYBACK_ENGINE_TESTING.md`, and `docs/PHASE2_REPORT.md`.
-
-### Phase 3: Design System & Responsive Application Shell
-1. **Design Tokens & System:** Established comprehensive dark graphite tokens (`src/styles/tokens.css`), typography hierarchy, and purposeful telemetry accents.
-2. **UI Component Library:** Implemented accessible `Button`, `IconButton`, `Badge`, `Panel`, `Tooltip`, `SectionHeading`, and `EngineStatusBadge` primitives.
-3. **Responsive Application Shell:** Built `AppShell`, `AppHeader`, `PrimaryNavigation`, and `WorkspaceFrame` supporting desktop, tablet, and mobile off-canvas drawer.
-4. **Zustand State Architecture:** Built `src/state/appStore.ts` managing navigation and dataset parameters ($N \in [2, 100]$) while isolating high-frequency playback ticks.
-5. **Phase 3 Verification:** Added 3 test suites (19 new tests) reaching **90/90 passing tests** across 13 suites; published `docs/DESIGN_SYSTEM.md`, `docs/APP_SHELL_ARCHITECTURE.md`, and `docs/PHASE3_REPORT.md`.
-
-### Phase 4: Five-Lane Sorting Arena, Canvas 2D Graphics & Telemetry
-1. **Canvas 2D Rendering Engine:** Built pure layout geometry calculator (`calculateBarLayout.ts`) and pure canvas drawer (`drawLane.ts`) supporting DPR retina scaling, active partition range shading, and label suppression for $N > 25$.
-2. **Five Synchronized Lanes:** Implemented `CanvasLane.tsx` mounting 5 concurrent algorithm lanes (Bubble, Selection, Insertion, Quick, Merge) with live telemetry HUDs (comparisons, writes, recursion stack depth) and responsive `ResizeObserver`.
-3. **Playback & Telemetry Toolbar:** Built `RaceToolbar.tsx` offering Play/Pause, Step Forward/Backward, Restart (Step 0), scrub slider, and speed multiplier (1–1000 ev/s).
-4. **Dataset Configuration:** Built `DatasetControls.tsx` and `generator.ts` with Mulberry32 PRNG supporting 5 input patterns and custom comma-separated array validation ($N \in [2, 100]$, values $1..99$).
-5. **Phase 4 Verification:** Added 4 test suites (33 new tests) reaching **123/123 passing tests** across 17 suites; published `docs/SORTING_ARENA_DESIGN.md`, `docs/ARENA_INTEGRATION.md`, and `docs/PHASE4_REPORT.md`.
-
-### Phase 5: Dataset Shape Analysis, Predictions, Scoreboard & Verdicts
-1. **Dataset Shape Analysis:** Built `ShapeAnalysisPanel.tsx` displaying Inversions ($I$), inversion ratio ($r$) gauge, max leftward displacement ($p$), distinct count, duplicate ratio ($d$), and syllabus notes.
-2. **11-Bucket Hash Table Visualization:** Built `HashTableVisualization.tsx` depicting division hashing ($h(k) = k \pmod{11}$), chain distribution, key chips, and collision metrics.
-3. **Empirical Cost-Model Predictions:** Built `PredictionPanel.tsx` with closed-form estimates across all 5 algorithms, C rationale explanation, and zero-leakage hypothesis toggle.
-4. **Post-Race Scoreboard & Verdicts:** Built `Scoreboard.tsx` and `PredictionVerdict.tsx` featuring zero outcome leakage prior to race completion, verified final operations, call stack depth, honest tie rankings (`T-1`, `T-2`), and academic verdicts (`CONFIRMED`, `MISSED`, `INCONCLUSIVE`, `UNAVAILABLE`).
-5. **Phase 5 Verification:** Added 4 test suites (25 new tests) reaching **148/148 passing tests** across 21 suites; published `docs/ANALYSIS_AND_PREDICTION.md`, `docs/RESULTS_AND_SCORING.md`, and `docs/PHASE5_REPORT.md`.
-
-### Phase 6: Supporting Labs (Search, Scaling, and Viva Demo Mode)
-1. **Search Laboratory:** Built `SearchLab.tsx`, `SearchVisualizer.tsx`, and `SearchStepPlayer.ts` featuring verified C search buffer synchronization, target selection ($1..99$), and side-by-side comparison between Linear ($O(n)$) and Binary ($O(\log n)$) search.
-2. **Empirical Scaling Lab:** Built `ScalingLab.tsx`, `ScalingChart.tsx`, `ScalingDataTable.tsx`, and `ScalingBenchmark.ts` executing actual C algorithm runs across $N \in [10, 100]$ (`recordTrace = 0`), rendering solid empirical curves, dashed asymptotic references, and dotted cost model predictions.
-3. **Automated Viva Demo Mode:** Built `VivaDemoController.ts`, `VivaDemoBar.tsx`, and `VivaDemoView.tsx` with a 10-stage 92-second academic tour, floating control bar, observer subscriptions, and university examiner study guide.
-4. **Phase 6 Verification:** Added 4 test suites (18 new tests) reaching **166/166 passing tests** across 25 suites; published `docs/SEARCH_LAB.md`, `docs/SCALING_LAB.md`, `docs/VIVA_DEMO.md`, and `docs/PHASE6_REPORT.md`.
-
-### Phase 7: Local Persistence, Keyboard Shortcuts, Accessibility & Polish
-1. **Schema-Versioned Persistence Subsystem:** Implemented `src/state/persistence/` with `StoredPreferences` (version 1) and `CompletedRunRecord` (version 1), featuring automatic QuotaExceeded recovery and invalid JSON fallbacks.
-2. **Telemetry History & Bounded Retention:** Records verified 5-lane completed runs with zero trace overflows (bounded at 200 runs), expandable operation tables, and JSON report export.
-3. **Global Keyboard Shortcuts & Input Suppression:** Implemented `src/hooks/useKeyboardShortcuts.ts` (<kbd>Space</kbd>, <kbd>→</kbd>, <kbd>←</kbd>, <kbd>Home</kbd>, <kbd>1</kbd>–<kbd>5</kbd>, <kbd>?</kbd>, <kbd>H</kbd>, <kbd>Esc</kbd>) with strict typing suppression in input fields.
-4. **WCAG 2.2 AA Accessibility Refinements:** Integrated `LiveAnnouncer.tsx` with polite throttled screen reader announcements, Canvas `role="img"` with dynamic labels and `.sl-sr-only` mirror text, `:focus-visible` styling, and `@media (prefers-reduced-motion: reduce)` support.
-5. **Phase 7 Verification:** Added 5 test suites (34 new tests) reaching **200/200 passing tests** across 30 suites; published `docs/PERSISTENCE.md`, `docs/KEYBOARD_SHORTCUTS.md`, `docs/ACCESSIBILITY_AUDIT.md`, and `docs/PHASE7_REPORT.md`.
-
-### Phase 8: Full-System Regression & Release Acceptance Testing
-1. **Source Preservation Audit:** Verified 100% SHA-256 match on all 8 preserved C99 source files (`docs/SOURCE_MANIFEST.md`); original `sortlens` repository remains clean on branch `v2`.
-2. **Native C99 Verification & Parity:** Confirmed 6/6 native C test suites pass and calibration achieves 96.50% prediction accuracy; verified 100% exact event and counter parity between native C and WebAssembly.
-3. **Automated Regression & Stress Suite:** Built `tests/regression/phase8Regression.test.tsx` verifying $N=2, 100$, all-identical arrays, reversed arrays, extreme duplicate arrays, custom input parsing rejection, trace queue overflow rejection, and 50 consecutive runs without memory leak or performance degradation.
-4. **Defect Remediation:** Enforced strict integer validation in `SearchLab.tsx` to reject decimal and non-numeric inputs.
-5. **Phase 8 Verification:** Reached **214/214 passing tests** across 31 test suites, verified sub-second production static build (773ms) and local HTTP preview; published `docs/PHASE8_ACCEPTANCE_MATRIX.md`, `docs/PHASE8_REGRESSION_REPORT.md`, and `docs/PHASE8_REPORT.md`.
-
-### Phase 9: Release Readiness, Static Packaging & Academic Viva Delivery
-1. **Static Production Distribution:** Built and staged clean static distribution package in `release/SortLens-static/` containing `index.html`, `assets/`, and `wasm/core.js`, alongside compressed archive `release/SortLens-static-v1.0.0.zip` (133 kB).
-2. **Real-Browser Verification Suite:** Implemented `scripts/verify-browser-workflows.mjs` verifying all 8 end-to-end browser workflows (A–H) in headless Microsoft Edge via CDP with 100% pass rate.
-3. **Windows Development & Launch Scripts:** Delivered `scripts/windows/run-dev.bat`, `build-release.bat`, and `preview-release.bat` with automated prerequisite checking.
-4. **Academic Viva Defense Handbook:** Authored comprehensive `release/ACADEMIC_VIVA_GUIDE.md` covering architecture, counting rules, shape analysis, data structures, and **35 authoritative examiner Q&As** with source code references.
-5. **Live Demonstration Runbook:** Authored `release/VIVA_DEMONSTRATION_RUNBOOK.md` providing an 11-stage, 10–12 minute live evaluation presentation sequence with immediate recovery procedures.
-6. **Release Governance & Audit:** Authored `release/RELEASE_NOTES.md`, `release/RELEASE_MANIFEST.md`, `release/RELEASE_README.md`, `docs/PHASE9_RELEASE_CHECKLIST.md`, and `docs/PHASE9_REPORT.md`.
+1. [Introduction](#1-introduction)
+2. [Problem Statement](#2-problem-statement)
+3. [Project Objectives](#3-project-objectives)
+4. [Core Features](#4-core-features)
+5. [Implemented Sorting Algorithms](#5-implemented-sorting-algorithms)
+6. [Technology Stack](#6-technology-stack)
+7. [System Architecture](#7-system-architecture)
+8. [Dataset Analysis and Mathematical Concepts](#8-dataset-analysis-and-mathematical-concepts)
+9. [Cost Prediction](#9-cost-prediction)
+10. [Application Workflow](#10-application-workflow)
+11. [Installation and Usage](#11-installation-and-usage)
+12. [Project Structure](#12-project-structure)
+13. [Verification and Testing](#13-verification-and-testing)
+14. [Limitations and Scope](#14-limitations-and-scope)
+15. [Academic and Educational Relevance](#15-academic-and-educational-relevance)
+16. [License](#16-license)
 
 ---
 
+## 1. Introduction
 
-## 3. Technology Stack
+SortLens v2.0 is a browser-based algorithm analysis workbench built for academic study of sorting and searching algorithms. It runs five sorting algorithms simultaneously on the same input dataset, renders each execution as an animated bar chart on a Canvas element, and records precise operation counters — comparisons, writes, and recursion stack depth — produced by a C99 algorithmic core compiled to WebAssembly.
 
-* **Algorithmic Core:** C99 (`core/sorts.c`, `analyzer.c`, `hashtable.c`, `stack.c`, `trace.c`, `search.c`, `api.c`)
-* **Core Bridge:** WebAssembly (Emscripten compilation target)
-* **Frontend Framework:** React 19 + TypeScript 7
-* **Build System & Dev Server:** Vite 8
-* **State Management:** Zustand 5
-* **Animation Framework:** Motion for React + Canvas 2D for sorting lanes
-* **Testing:** Vitest + React Testing Library + Native GCC test runner
-* **Styling:** Custom CSS with dark graphite laboratory design tokens
+The application targets students studying data structures and algorithms. It is designed to make the relationship between an algorithm's structure, the characteristics of its input data, and its empirical operation cost observable and measurable, rather than purely theoretical.
+
+SortLens operates entirely in the browser. It requires no server, no login, and no network connection after the initial page load.
 
 ---
 
-## 4. Development & Testing Commands
+## 2. Problem Statement
 
-### Prerequisites
-* Node.js v20+ (tested on v24.12.0)
-* npm v10+ (tested on v11.6.2)
-* GCC with C99 support (e.g., MinGW-w64 GCC 15.2.0)
+Understanding algorithm execution from pseudocode or textbook examples alone is difficult. Two common challenges are:
 
-### Frontend Development
-```bash
-# Start local development server with Hot Module Replacement
-npm run dev
+**Visualising execution:** The step-by-step mechanics of an algorithm — which elements are compared, which are moved, how recursion subdivides a problem — are not apparent from a static description. Without a visual reference, it is easy to understand that an algorithm is correct without understanding how it behaves.
 
-# Run TypeScript type check
-npm run typecheck
+**Connecting theory to observation:** Standard time-complexity notation describes asymptotic behaviour, not the actual operation count on a specific input. A student can memorise that Quick Sort has O(n log n) average-case complexity without understanding why it degrades on sorted or reversed input, or what "comparisons" means relative to "writes" for their particular dataset.
 
-# Run automated frontend unit & integration tests
-npm run test
+SortLens addresses both challenges. It records every comparison, swap, write, pivot selection, partition range, and stack frame push/pop performed by the C99 engine, then replays them frame by frame as a canvas animation. Operation counters reflect the actual execution, not a formula. Dataset analysis tools expose the structural properties of the input — inversions, displacement, duplicates — that directly influence algorithm behaviour.
 
-# Run real-browser automation verification suite (Edge / Chrome via CDP)
-npm run test:browser
+---
 
-# Build production bundle
-npm run build
+## 3. Project Objectives
 
-# Preview production build locally
-npm run preview
+- Visualise the execution of five canonical sorting algorithms simultaneously on the same input.
+- Enable controlled comparison of algorithm behaviour across different dataset sizes and patterns.
+- Measure and display precise operation counters (comparisons, writes, maximum recursion depth) from the C99 execution engine.
+- Analyse input dataset characteristics: inversion count, inversion ratio, maximum leftward displacement, distinct elements, and duplicate distribution.
+- Provide an empirical cost-model prediction, and compare the prediction against the measured result after execution.
+- Support search algorithm exploration through a dedicated Search Lab.
+- Provide empirical scaling curves across increasing dataset sizes through the Scaling Lab.
+- Enable a structured academic demonstration through Viva Demo Mode.
+- Maintain correct, reproducible execution through native C99 and native-to-WebAssembly parity verification.
+
+---
+
+## 4. Core Features
+
+### Race Arena
+
+The primary interface. Five sorting algorithms (Bubble, Selection, Insertion, Quick, Merge) execute in parallel on the same dataset. Each algorithm occupies a dedicated canvas lane that renders an animated bar chart of the array state at each recorded event. A shared toolbar provides play, pause, step forward, step backward, restart, a scrub slider, and a speed multiplier (1–1000 events per second).
+
+### Dataset Configuration
+
+Datasets are generated by a seeded Mulberry32 pseudo-random number generator, ensuring reproducibility. Supported patterns are: Random, Sorted, Reverse Sorted, Nearly Sorted, and Many Duplicates. Array size N is configurable from 2 to 100 elements, with values in the range 1–99. A custom input mode accepts a comma-separated list of integers for manual experiments.
+
+### Algorithm Visualization
+
+Each canvas lane uses a pure layout-geometry engine to calculate bar positions and heights, then draws them using the HTML Canvas 2D API. Active partition ranges are shaded. Element labels are suppressed for N > 25 to keep the visualisation readable. The rendering path bypasses the React update cycle to maintain steady frame rates.
+
+### Operation Counters and Telemetry
+
+Every lane displays live counters: comparisons, writes, and — for Quick Sort and Merge Sort — maximum recursion stack depth. Counters are produced by the C99 engine and recorded during execution; they are not estimated or approximated in JavaScript.
+
+### Dataset Shape Analysis
+
+Before a race, the dataset's structural properties are computed by the C99 analyzer:
+
+- **Inversion count** — the number of element pairs (i, j) where i < j but arr[i] > arr[j].
+- **Inversion ratio** — inversion count normalised by n(n − 1) / 2.
+- **Maximum leftward displacement** — the largest index distance by which any element must travel left to reach its sorted position.
+- **Distinct element count** — the number of unique values in the dataset.
+- **Duplicate ratio** — the fraction of values that are duplicated.
+
+### Hash-Table Bucket Visualization
+
+An 11-bucket chained hash table is built from the dataset using division hashing (h(k) = k mod 11). The visualisation shows each bucket's chain of keys, chain lengths, and the total collision count. This demonstrates the relationship between dataset value distribution and hash-table performance. This is a dataset analysis feature, not an additional sorting algorithm.
+
+### Empirical Cost-Model Prediction
+
+Before the race, the shape analyzer uses the dataset's inversion count and other characteristics to estimate the operation cost of each algorithm using closed-form cost models. It selects a predicted winner and provides a written rationale. After the race, a verdict panel compares the prediction against the measured counters and reports: CONFIRMED, MISSED, INCONCLUSIVE, or UNAVAILABLE.
+
+### Deterministic Execution and Playback
+
+The C99 engine records every operation as a typed event in a fixed-size trace queue (capacity: 30,000 events per algorithm). The frontend replays events from this queue. Playback is bidirectional: the user can step forward and backward through the recorded execution. Seeks to arbitrary positions use sparse checkpoints at interval 50 for sub-millisecond response.
+
+### Search Lab
+
+A dedicated interface for exploring Linear Search (O(n)) and Binary Search (O(log n)) side by side. The user selects a target value, and the visualiser steps through each algorithm's access sequence, displaying the comparison count and search steps. Binary Search operates on a sorted copy of the current array. All search execution is performed by the C99 engine.
+
+### Scaling Lab
+
+Executes all five sorting algorithms across a range of dataset sizes (N = 10 to 100) and plots empirical operation curves. Dashed asymptotic reference lines and dotted cost-model prediction curves are overlaid for comparison. The benchmark runs actual C99 algorithm executions with trace recording disabled, measuring real operation counts rather than synthetic estimates.
+
+### Viva Demo Mode
+
+A scripted 10-stage, approximately 92-second guided tour of the application. A floating control bar steps through predefined demonstration scenarios, navigating the interface automatically to present key features in a logical academic sequence. Intended for use during a live oral examination or project demonstration.
+
+### WebAssembly Diagnostics
+
+A collapsible panel exposing the WebAssembly engine's internal state: WASM module load status, the resolved shape analysis result (inversions, ratio, distinct, collisions, estimates, predicted winner), and the ability to trigger raw C API calls directly. Useful for verifying engine correctness and inspecting raw output values.
+
+### Run History and Persistence
+
+Completed race results are saved to localStorage. The history modal displays previous runs with their dataset configuration, operation counters, and the scoreboard result. Up to 200 runs are retained. If the storage quota is exceeded, the oldest runs are evicted automatically. User preferences (speed, dataset pattern, N) are also persisted across sessions.
+
+### Keyboard Accessibility
+
+Global keyboard shortcuts support common actions without a pointer device:
+
+| Key | Action |
+|---|---|
+| `Space` | Play / Pause |
+| `→` | Step forward |
+| `←` | Step backward |
+| `Home` | Restart (step 0) |
+| `1`–`5` | Set speed multiplier |
+| `?` | Open keyboard shortcut reference |
+| `H` | Open run history |
+| `Esc` | Close open modal |
+
+Input fields suppress shortcut activation while focused. Canvas elements carry `role="img"` with dynamic accessible labels. Live state changes are announced via a polite ARIA live region. Reduced-motion support honours the `prefers-reduced-motion: reduce` media query.
+
+---
+
+## 5. Implemented Sorting Algorithms
+
+All five algorithms are implemented in C99 (`src/core/c/sorts.c`) and compiled to WebAssembly. Each implementation records typed trace events for every comparison, write, swap, pivot selection, partition range, and stack operation it performs.
+
+| Algorithm | Technique | Best Case | Average Case | Worst Case |
+|---|---|---|---|---|
+| Bubble Sort | Adjacent comparisons with early-exit flag | O(n) | O(n²) | O(n²) |
+| Selection Sort | Repeated minimum selection | O(n²) | O(n²) | O(n²) |
+| Insertion Sort | Inserting each element into its sorted position | O(n) | O(n²) | O(n²) |
+| Quick Sort | Lomuto partition with last-element pivot | O(n log n) | O(n log n) | O(n²) |
+| Merge Sort | Top-down divide and merge | O(n log n) | O(n log n) | O(n log n) |
+
+**Bubble Sort** scans the array repeatedly, swapping adjacent elements that are out of order. An early-exit flag terminates the algorithm when a full pass produces no swaps, achieving O(n) on already-sorted input.
+
+**Selection Sort** finds the minimum unsorted element and places it at the front of the unsorted region on each pass. It performs the same number of comparisons regardless of the input order.
+
+**Insertion Sort** maintains a sorted prefix, inserting each new element into its correct position by shifting larger elements rightward. It is efficient on nearly sorted input.
+
+**Quick Sort** selects the last element as pivot (Lomuto scheme), partitions the array around it, and recurses on both halves. Its average-case complexity assumes reasonably balanced partitions; worst-case O(n²) occurs on sorted or reverse-sorted input with this pivot choice.
+
+**Merge Sort** recursively divides the array in half, sorts each half, then merges the two sorted halves. It achieves O(n log n) in all cases at the cost of additional write operations during merging.
+
+---
+
+## 6. Technology Stack
+
+| Technology | Role |
+|---|---|
+| **C99** | Algorithmic core: sorting, searching, shape analysis, hash-table, trace recording |
+| **WebAssembly** | Browser execution target for the compiled C99 core |
+| **TypeScript** | Typed application logic, adapter contracts, state management |
+| **React 19** | Component-based user interface and view layer |
+| **Vite 8** | Development server with Hot Module Replacement and production build bundling |
+| **Zustand 5** | Shared application state (navigation, dataset parameters, playback coordination) |
+| **HTML Canvas 2D** | Frame-by-frame algorithm visualization and search step rendering |
+| **CSS** | Interface styling, design tokens, responsive layout, reduced-motion support |
+| **localStorage** | Client-side persistence for run history and user preferences |
+| **Vitest** | Automated unit and integration tests for the TypeScript application |
+| **GCC / C99** | Native C test runner for core correctness and parity verification |
+
+---
+
+## 7. System Architecture
+
+SortLens separates algorithm execution from its visual presentation through a layered architecture:
+
+```
+User Controls / Dataset Configuration
+         │
+         ▼
+ Application & State Layer (React + Zustand)
+         │
+         ▼
+   TypeScript Adapter  (src/core/adapter/)
+         │  typed input validation, BigInt normalisation, C-string decoding
+         ▼
+ C99 / WebAssembly Engine  (src/core/c/ → public/wasm/core.js)
+         │  sorting, searching, shape analysis, hash table, trace recording
+         ▼
+  Trace Events & Operation Counters
+         │  up to 30,000 typed events per algorithm
+         ▼
+ Playback Engine  (src/engine/)
+         │  FrameStore, TracePlayer, RaceCoordinator, PlaybackClock
+         ▼
+  Canvas Rendering  (src/components/arena/canvas/)
+         │  calculateBarLayout → drawLane → HTMLCanvasElement
+         ▼
+     Visual Output + Live Telemetry HUDs
 ```
 
-### Windows Batch Helpers (`scripts/windows/`)
-* **`scripts\windows\run-dev.bat`**: Prerequisite checks & development server launch.
-* **`scripts\windows\build-release.bat`**: Full typecheck, test suite, production build, and staging to `release/SortLens-static/`.
-* **`scripts\windows\preview-release.bat`**: Production static preview launcher.
+**C99/WebAssembly Engine.** All algorithmic computation runs in the compiled C core. The engine sorts arrays, runs searches, builds the hash table, counts inversions, computes displacement, and records every operation as a `TraceEvent` in a fixed-capacity queue. No sorting or counting logic exists in JavaScript.
 
-### Native C99 Verification
+**TypeScript Adapter.** `src/core/adapter/createCoreClient.ts` wraps every C API export with strict TypeScript types, input validation, and BigInt normalisation. It is the only point of contact between the JavaScript application and the WebAssembly module.
+
+**Playback Engine.** `RaceCoordinator` initialises five `TracePlayer` instances, one per algorithm, and synchronises their playback. `FrameStore` maintains sparse checkpoints (every 50 frames) so that seeks to any position complete in sub-millisecond time. `PlaybackClock` decouples simulation speed from the display frame rate.
+
+**Canvas Rendering.** `calculateBarLayout.ts` computes bar geometry from the current frame state. `drawLane.ts` issues Canvas 2D draw calls. Both are pure functions with no React dependency; they are called directly from a `requestAnimationFrame` loop to avoid React reconciliation overhead.
+
+**State Management.** Zustand manages navigation state, dataset parameters, and the race lifecycle (idle, running, paused, complete). High-frequency playback ticks do not pass through the Zustand store, keeping the React render cycle unaffected by animation.
+
+---
+
+## 8. Dataset Analysis and Mathematical Concepts
+
+The shape analysis is computed by the C99 `analyze_shape` function before each race. The results drive both the cost-model predictions and the analysis panel display.
+
+### Inversion Count
+
+An inversion is a pair of indices (i, j) where i < j and arr[i] > arr[j]. The inversion count measures how far an array is from sorted order. A fully sorted array has 0 inversions; a fully reversed array of n distinct elements has n(n − 1) / 2 inversions.
+
+### Inversion Ratio
+
+The inversion count normalised to the range [0, 1]:
+
+```
+Inversion Ratio = Inversion Count / [n(n − 1) / 2]
+```
+
+This formula applies when n > 1. A ratio of 0.0 indicates a fully sorted array; 1.0 indicates a fully reversed array of distinct elements.
+
+### Maximum Leftward Displacement
+
+For each element, the leftward displacement is the distance it must travel to reach its position in the sorted array (i.e., sorted_position − current_index when that value is negative, expressed as a positive magnitude). The maximum leftward displacement is the largest such value across all elements in the array.
+
+### Distinct Elements
+
+The number of unique values in the dataset, computed using the 11-bucket chained hash table. This distinguishes between arrays where every value is unique and those with significant repetition.
+
+### Duplicate Ratio
+
+The fraction of array positions occupied by values that appear more than once:
+
+```
+Duplicate Ratio = (n − distinct_count) / n
+```
+
+A ratio of 0.0 means all elements are unique; 1.0 means every element is a duplicate of another.
+
+### Hash-Table Bucket Distribution
+
+The dataset values are inserted into an 11-bucket hash table using division hashing:
+
+```
+h(k) = k mod 11
+```
+
+Chains of keys at each bucket are displayed visually. The collision count indicates how many insertions landed in an already-occupied bucket position. This illustrates how value distribution affects hash-table performance and motivates the choice of a prime table size.
+
+---
+
+## 9. Cost Prediction
+
+Before a race, the shape analyzer uses the dataset's inversion count, inversion ratio, and other characteristics to estimate the total operation cost of each algorithm using closed-form models calibrated against empirical native C measurements. The analyzer selects a predicted winner — the algorithm estimated to perform the fewest operations under the configured judging criterion (comparisons, writes, or total) — and provides a brief rationale.
+
+After the race completes, a verdict panel compares the prediction to the measured operation counters:
+
+- **CONFIRMED** — the predicted winner recorded the fewest operations.
+- **MISSED** — a different algorithm recorded fewer operations.
+- **INCONCLUSIVE** — two or more algorithms tied.
+- **UNAVAILABLE** — a counter required for judgement was not available.
+
+The cost prediction is an empirical estimate based on dataset shape. It does not guarantee actual elapsed-time performance, which depends on processor architecture, cache behaviour, and other runtime factors outside the model's scope.
+
+---
+
+## 10. Application Workflow
+
+A typical session proceeds as follows:
+
+1. **Configure the dataset.** Select an array size (N = 2–100), choose a dataset pattern (Random, Sorted, Reverse Sorted, Nearly Sorted, Many Duplicates), or enter a custom comma-separated array.
+
+2. **Choose a judging criterion.** Select whether the race winner is determined by comparisons, writes, or total operations.
+
+3. **Stage the experiment.** Click **Generate** to produce the dataset and compute the shape analysis and cost-model predictions. Review the shape panel and prediction panel before starting.
+
+4. **Run the race.** Click **Play** or press `Space`. Observe all five algorithm lanes executing simultaneously. Use the scrub slider or step controls to examine specific moments in the execution.
+
+5. **Compare operation counters.** Read the live comparison and write counters on each lane. After completion, view the ranked scoreboard.
+
+6. **Inspect dataset characteristics.** Review the shape analysis panel: inversion count, inversion ratio gauge, maximum leftward displacement, distinct elements, duplicate ratio, and hash-table bucket distribution.
+
+7. **Examine the prediction verdict.** Compare the pre-race prediction against the measured result. Consider why the prediction matched or did not match the actual outcome.
+
+8. **Explore the supporting laboratories.** Use the Search Lab to compare Linear and Binary Search, the Scaling Lab to observe empirical operation curves across increasing dataset sizes, or Viva Demo Mode for a structured guided tour.
+
+---
+
+## 11. Installation and Usage
+
+### Prerequisites
+
+- Node.js v20 or later (tested on v24)
+- npm v10 or later
+- GCC with C99 support (required only for native C verification; e.g., MinGW-w64 on Windows)
+
+### Install Dependencies
+
 ```bash
-# Compile and run native C core test suite
+npm install
+```
+
+### Start the Development Server
+
+```bash
+npm run dev
+```
+
+Opens the application at `http://localhost:5173` with Hot Module Replacement.
+
+### TypeScript Type Check
+
+```bash
+npm run typecheck
+```
+
+### Run Automated Tests
+
+```bash
+npm run test
+```
+
+Runs all Vitest unit and integration tests.
+
+### Native C99 Core Tests
+
+```bash
 npm run test:native
+```
 
-# Compile and run empirical cost-model calibration benchmark
-npm run calibrate:native
+Compiles and runs the native C test suite against `src/core/c/`. Requires GCC.
 
-# Compile native reference harness and run native/WASM parity tests
+### Native/WebAssembly Parity Verification
+
+```bash
 npm run test:parity
 ```
 
+Compiles the native parity harness, runs it to produce a baseline JSON, then runs the TypeScript parity tests to confirm that WebAssembly output matches native C output exactly across all algorithms and search routines.
+
+### Empirical Calibration Benchmark
+
+```bash
+npm run calibrate:native
+```
+
+Compiles and runs `tools/calibrate.c` to benchmark cost-model prediction accuracy on synthetic arrays.
+
+### Production Build
+
+```bash
+npm run build
+```
+
+Runs TypeScript type checking, then builds the optimised static bundle to `dist/`.
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+Serves the production bundle locally for verification.
+
+### Windows Batch Scripts
+
+For Windows users, convenience scripts are available in `scripts/windows/`:
+
+- `run-dev.bat` — prerequisite check and development server launch
+- `build-release.bat` — full typecheck, test, and production build
+- `preview-release.bat` — production static preview
+
 ---
 
-## 5. Academic Documentation & Release Package
+## 12. Project Structure
 
-* **[`release/ACADEMIC_VIVA_GUIDE.md`](file:///c:/Users/vishv/OneDrive/Desktop/DS%20MINI%20PROJECT/sortlens-rebuild/release/ACADEMIC_VIVA_GUIDE.md)**: Comprehensive viva defense guide with Sections A–L and **35 authoritative examiner Q&As** with source code references.
-* **[`release/VIVA_DEMONSTRATION_RUNBOOK.md`](file:///c:/Users/vishv/OneDrive/Desktop/DS%20MINI%20PROJECT/sortlens-rebuild/release/VIVA_DEMONSTRATION_RUNBOOK.md)**: 11-stage, 10–12 minute live presentation sequence with recovery steps.
-* **[`release/RELEASE_NOTES.md`](file:///c:/Users/vishv/OneDrive/Desktop/DS%20MINI%20PROJECT/sortlens-rebuild/release/RELEASE_NOTES.md)**: Production release notes, feature highlights, and known limitations.
-* **[`release/RELEASE_MANIFEST.md`](file:///c:/Users/vishv/OneDrive/Desktop/DS%20MINI%20PROJECT/sortlens-rebuild/release/RELEASE_MANIFEST.md)**: Exact build hashes, test metrics, and environment specifications.
-* **[`release/RELEASE_README.md`](file:///c:/Users/vishv/OneDrive/Desktop/DS%20MINI%20PROJECT/sortlens-rebuild/release/RELEASE_README.md)**: Static deployment instructions for local and cloud web servers.
+```
+sortlens-rebuild/
+├── src/
+│   ├── app/                    # Root application component (App.tsx)
+│   ├── components/
+│   │   ├── arena/              # Race Arena: SortingArena, CanvasLane, DatasetControls, RaceToolbar
+│   │   │   └── canvas/         # Pure rendering: calculateBarLayout.ts, drawLane.ts
+│   │   ├── analysis/           # ShapeAnalysisPanel, PredictionPanel, HashTableVisualization
+│   │   ├── results/            # Scoreboard, PredictionVerdict
+│   │   ├── search/             # SearchLab, SearchVisualizer, SearchStepPlayer
+│   │   ├── scaling/            # ScalingLab, ScalingChart, ScalingDataTable, ScalingBenchmark
+│   │   ├── diagnostics/        # CoreDiagnosticPanel (collapsible WASM inspector)
+│   │   ├── history/            # HistoryModal (run history and JSON export)
+│   │   ├── layout/             # AppShell, AppHeader, PrimaryNavigation, WorkspaceFrame
+│   │   └── ui/                 # Button, Badge, Panel, Tooltip, SectionHeading, IconButton
+│   ├── core/
+│   │   ├── c/                  # C99 source: sorts.c, analyzer.c, hashtable.c, stack.c,
+│   │   │                       #             trace.c, search.c, api.c, sortlens.h
+│   │   ├── adapter/            # TypeScript WASM adapter: createCoreClient.ts, loader.ts, types.ts
+│   │   ├── dataset/            # Dataset generator (Mulberry32 PRNG, pattern generation)
+│   │   └── wasm/               # Compiled WASM shim (core.js, coreApi.js)
+│   ├── engine/                 # Playback engine: FrameStore, TracePlayer, RaceCoordinator,
+│   │                           #                  PlaybackClock, frameReplay
+│   ├── features/
+│   │   └── viva/               # Viva Demo Mode: VivaDemoController, VivaDemoBar, VivaDemoView
+│   ├── hooks/                  # useKeyboardShortcuts
+│   ├── state/                  # Zustand store (appStore.ts) and persistence subsystem
+│   └── styles/                 # CSS: tokens.css, global.css, components.css, arena.css, …
+├── tests/                      # Vitest test suites (unit, integration, regression)
+│   └── c/                      # Native C test suite and parity harness
+├── tools/                      # calibrate.c (cost-model calibration benchmark)
+├── scripts/                    # Browser workflow verification, Windows batch scripts
+├── docs/                       # Design documents, ADRs, phase reports, reference specs
+├── release/                    # Static distribution, release notes, viva guides
+├── public/
+│   └── wasm/                   # Compiled WebAssembly module (core.js)
+├── index.html
+├── package.json
+├── vite.config.ts
+└── tsconfig.json
+```
 
 ---
 
-## 6. Architectural Principles
+## 13. Verification and Testing
 
-* **Single Authority:** All sorting, counting, shape analysis, duplicate detection, and search operations run strictly in C99 / WebAssembly.
-* **No Gamification:** Free of XP points, streak counters, mascots, sounds, or confetti.
-* **Decoupled Playback:** Visual animation updates bypass full React component re-renders to guarantee steady 60 FPS performance.
-* **Zero Backend Requirement:** Operates entirely client-side, fully compatible with static website hosting.
+The project uses multiple verification strategies:
 
+**TypeScript type checking** (`npm run typecheck`) validates the full application against strict TypeScript rules with no implicit `any`.
+
+**Automated Vitest tests** (`npm run test`) cover unit and integration behaviour across the playback engine, dataset generator, shape analysis, prediction model, scoreboard, search lab, scaling lab, viva mode, persistence subsystem, keyboard shortcuts, accessibility, and UI components.
+
+**Native C99 core tests** (`npm run test:native`) compile and execute `tests/c/test_core.c` using GCC. Six test suites verify the correctness of all sorting algorithms, the search routines, the hash table, the stack, the trace queue, and the shape analyzer independently of WebAssembly.
+
+**Native/WebAssembly parity tests** (`npm run test:parity`) run the same inputs through both the native C binary and the WebAssembly module, then compare every output value — operation counts, event sequences, shape analysis results — to confirm exact agreement.
+
+**Production build verification** (`npm run build`) confirms the TypeScript compilation and Vite bundle succeed without errors.
+
+**Real-browser workflow verification** (`npm run test:browser`) runs eight end-to-end workflow scripts in a headless browser via the Chrome DevTools Protocol, covering the Race Arena, dataset controls, Search Lab, Scaling Lab, and persistence.
+
+---
+
+## 14. Limitations and Scope
+
+- **Five sorting algorithms** are implemented: Bubble Sort, Selection Sort, Insertion Sort, Quick Sort (Lomuto), and Merge Sort. No additional algorithms are included.
+- **Dataset size range** for the Race Arena is N = 2–100 elements (`MAX_ARRAY_SIZE = 100` in `sortlens.h`). The Scaling Lab benchmarks across N = 10–100.
+- **Element value range** is 1–99 for generated datasets. Custom arrays accept integers in the same range.
+- **Trace queue capacity** is 30,000 events per algorithm (`MAX_EVENTS = 30000` in `sortlens.h`). For large or adversarial inputs where this limit is reached, the engine sets an overflow flag; the arena displays a warning and the race result for that lane is not counted.
+- **Cost prediction is an estimate.** The predicted winner minimises the estimated operation count for the given dataset shape. It does not predict wall-clock execution time and is not guaranteed to match the measured result on every input.
+- **No backend.** The application runs entirely in the browser. There is no server, no database, and no network dependency after load.
+- **WebAssembly compilation.** The repository includes a pre-compiled WebAssembly module (`public/wasm/core.js`). Re-compiling the C99 source to WebAssembly requires an Emscripten toolchain, which is not part of the standard development setup.
+
+---
+
+## 15. Academic and Educational Relevance
+
+SortLens is designed as a practical companion to a data structures and algorithms course. Its educational value lies in making abstract concepts directly observable:
+
+**Sorting strategies.** By watching five algorithms operate simultaneously on the same input, a student can see structural differences in behaviour that text descriptions do not easily convey — for example, how Insertion Sort maintains a growing sorted prefix, how Quick Sort's partition range narrows, and how Merge Sort divides and reconstitutes the array.
+
+**Time complexity.** Operation counters provide concrete measurements that a student can relate to theoretical complexity class predictions. The effect of input order on Quick Sort's worst-case behaviour becomes immediately apparent when the same algorithm is run on sorted versus random input.
+
+**Operation counting.** Separating comparisons from writes introduces the idea that two algorithms with the same asymptotic complexity may have very different practical profiles depending on which operation is more expensive in a given context.
+
+**Dataset characteristics.** Inversion count, inversion ratio, and maximum leftward displacement connect the structure of the input to the effort required to sort it, grounding complexity analysis in measurable data properties rather than abstract assumptions.
+
+**Empirical versus theoretical analysis.** The prediction-versus-measurement verdict demonstrates that theoretical models are approximations, and that observed behaviour depends on input structure, not just input size.
+
+**Data structures in use.** The application demonstrates a fixed-capacity array-based queue (trace queue), an array-based stack (recursion simulation), and a chained hash table (duplicate detection) — each a standard syllabus data structure — operating within a real algorithmic context.
+
+**Software architecture and testing.** The project demonstrates separation of concerns between the algorithmic core, the adapter layer, the state-management layer, and the rendering layer, and covers multiple testing strategies including native C tests, unit tests, integration tests, parity verification, and real-browser workflow tests.
+
+---
+
+## 16. License
+
+No explicit open-source license is provided for this repository. All rights are reserved by the author. The repository is published for academic evaluation purposes.
